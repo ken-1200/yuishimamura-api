@@ -2,7 +2,6 @@ import base64
 import io
 import logging
 import re
-import time
 
 from botocore.exceptions import BotoCoreError, ClientError
 from PIL import Image
@@ -10,11 +9,6 @@ from PIL import Image
 from app.boto3_client import init_client
 
 logger = logging.getLogger(__name__)
-
-
-def make_time_ns() -> int:
-    """ナノ秒のタイムスタンプを生成"""
-    return time.time_ns()
 
 
 def convert_b64_string_to_bynary(string: str) -> bytes:

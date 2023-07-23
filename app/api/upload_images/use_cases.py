@@ -52,9 +52,9 @@ class UploadImage:
             )
             raise await self.convert_error(repr(error), S3UploadError)
 
-        # 最後の写真idを取得
-        _id = params.images_json["images"][-1]["id"]
-        _idx = params.images_json["images"][-1]["idx"]
+        # リスト内の各要素の id, idx 値を取得して、その中で最大値を見つけます
+        _id = max(image["id"] for image in params.images_json["images"])
+        _idx = max(image["idx"] for image in params.images_json["images"])
 
         # S3にJSONファイルをアップロード
         try:
@@ -70,6 +70,7 @@ class UploadImage:
                         "alt": f"{filename}",
                     }
                 )
+            logger.info(f"images_json: {params.images_json}")
 
             images_json_bytes = json.dumps(params.images_json).encode("utf-8")
             object_path = "images.json"

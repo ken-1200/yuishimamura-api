@@ -19,16 +19,20 @@ provider:
   iam:
     role:
       statements:
-        - Effect: 'Allow'
+        - Effect: Allow
           Action:
             - 's3:PutObject'
             - 's3:DeleteObject'
-          Resource: 'arn:aws:s3:::v1-yuishimamura-website-bucket-cf'
-        - Effect: 'Allow'
+          Resource: 'arn:aws:s3:::p01-yuishimamura-website-bucket-cf/*'
+        - Effect: Allow
           Action:
             - execute-api:Invoke
             - execute-api:ManageConnections
           Resource: '*'
+        - Effect: Allow
+          Action:
+            - 'cloudfront:CreateInvalidation'
+          Resource: 'arn:aws:cloudfront::${aws:accountId}:distribution/${env:DISTRIBUTION_ID}'
   tags:
     Product: yuishimamura
     Service: yuishimamura-api

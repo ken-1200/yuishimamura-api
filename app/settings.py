@@ -16,6 +16,7 @@ class Settings(BaseSettings):
     ALLOW_ORIGIN_REGEX: str
 
     BUCKET_NAME: str
+    DISTRIBUTION_ID: str
 
     # /docs 用のBasic認証
     BASIC_USER_NAME: str = "machidahouse-lab"
