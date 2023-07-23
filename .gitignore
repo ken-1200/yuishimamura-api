@@ -197,7 +197,7 @@ node_modules
 **/.serverless/
 **/node_modules/
 
-.yarn/*
+.yarn/
 !.yarn/releases
 !.yarn/plugins
 
