@@ -1,0 +1,88 @@
+service: yuishimamura-api
+
+frameworkVersion: "3"
+useDotenv: true
+
+plugins:
+  - serverless-domain-manager
+  - serverless-add-api-key
+  - serverless-dotenv-plugin
+  - serverless-prune-plugin
+
+provider:
+  name: aws
+  runtime: python3.10
+  stage: ${opt:stage, self:custom.defaultStage}
+  region: ap-northeast-1
+  timeout: 30
+  endpointType: REGIONAL
+  iam:
+    role:
+      statements:
+        - Effect: 'Allow'
+          Action:
+            - 's3:PutObject'
+            - 's3:DeleteObject'
+          Resource: 'arn:aws:s3:::v1-yuishimamura-website-bucket-cf'
+        - Effect: 'Allow'
+          Action:
+            - execute-api:Invoke
+            - execute-api:ManageConnections
+          Resource: '*'
+  tags:
+    Product: yuishimamura
+    Service: yuishimamura-api
+    Env: ${env:ENV}
+    Created: serverless
+    Repository: yuishimamura-api
+    Team: yuishimamura
+
+custom:
+  defaultStage: dev
+  env_prefixes:
+    prod: p01
+  domains:
+    prod: api.yuishimamura.com
+  customDomain:
+    domainName: ${self:custom.domains.${self:provider.stage}}
+    certificateName: ${self:custom.domains.${self:provider.stage}}
+    basePath: 'api'
+    endpointType: regional
+    stage: ${self:provider.stage}
+    createRoute53Record: true
+  apiKeys:
+    prod:
+      - name: YuiShimamuraAPIProdKey
+        value: zUmZWZmOaD86eUxuJZqwz8G4jULlwxeK24TCjKrk
+  tags:
+    - Key: Product
+      Value: ${self:provider.tags.Product}
+    - Key: Service
+      Value: ${self:provider.tags.Service}
+    - Key: Env
+      Value: ${self:provider.tags.Env}
+    - Key: Created
+      Value: ${self:provider.tags.Created}
+    - Key: Repository
+      Value: ${self:provider.tags.Repository}
+    - Key: Team
+      Value: ${self:provider.tags.Team}
+
+functions:
+  yuishimamura-api:
+    name: ${self:custom.env_prefixes.${self:provider.stage}}-yuishimamura-api
+    image: ${aws:accountId}.dkr.ecr.${aws:region}.amazonaws.com/${self:custom.env_prefixes.${self:provider.stage}}-yuishimamura-api:latest
+    events:
+      - http:
+          path: /{path+}
+          method: ANY
+          private: true
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent

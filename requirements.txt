@@ -1,0 +1,11 @@
+boto3
+fastapi
+httpx
+python-dateutil
+python-multipart
+pytz
+pydantic
+pydantic_settings
+mangum
+uvicorn[standard]
+pillow

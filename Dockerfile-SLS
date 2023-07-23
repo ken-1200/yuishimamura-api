@@ -1,0 +1,9 @@
+FROM public.ecr.aws/lambda/python:3.10-x86_64
+
+COPY ./requirements.lock .
+
+RUN pip install --no-cache-dir -r requirements.lock --target "${LAMBDA_TASK_ROOT}"
+
+ADD ./app ./app
+
+CMD ["app.main.handler"]

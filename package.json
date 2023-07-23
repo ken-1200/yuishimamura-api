@@ -1,0 +1,23 @@
+{
+  "name": "yuishimamura-api",
+  "version": "0.0.0",
+  "description": "",
+  "author": "",
+  "private": true,
+  "scripts": {
+    "sls": "serverless",
+    "deploy": "serverless deploy",
+    "remove": "serverless remove"
+  },
+  "devDependencies": {
+    "serverless": "^3.33.0",
+    "serverless-add-api-key": "^4.2.1",
+    "serverless-domain-manager": "^7.0.4",
+    "serverless-dotenv-plugin": "^6.0.0",
+    "serverless-prune-plugin": "^2.0.2"
+  },
+  "volta": {
+    "node": "18.16.1",
+    "yarn": "4.0.0-rc.48"
+  }
+}

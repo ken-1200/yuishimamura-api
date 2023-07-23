@@ -1,0 +1,24 @@
+version: "3"
+
+services:
+  yuishimamura-api:
+    build: .
+    command:
+      [
+        "uvicorn",
+        "app.main:app",
+        "--host",
+        "0.0.0.0",
+        "--port",
+        "5000",
+        "--reload",
+        "--reload-dir",
+        "app"
+      ]
+    environment:
+      APP_CONFIG_FILE: ${APP_CONFIG_FILE}
+    volumes:
+      - "./:/app/"
+      - $HOME/.aws/:/home/app/.aws/
+    ports:
+      - ${DEV_PORT:-5050}:5000

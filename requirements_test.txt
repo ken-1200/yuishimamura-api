@@ -1,0 +1,14 @@
+boto3
+black
+fastapi
+httpx
+isort
+moto
+mypy
+pytest
+pytest-asyncio
+pytest-cov
+pytest-env
+pytest-mock
+pytest-randomly
+requests
