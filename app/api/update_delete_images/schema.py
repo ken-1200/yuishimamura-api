@@ -8,11 +8,13 @@ class UpdateDeleteImageRequest(BaseModel):
     images_json: dict = Field(..., description="写真データのJSON(写真の並び順を保持)")
 
     @field_validator("images_path")
-    def validate_images_path(cls, values):
-        for uri in values:
-            if not uri.startswith("s3://") or not uri.endswith(".webp"):
-                raise ValueError("uri needs to start with s3:// and end with .webp")
-        return uri
+    def validate_images_path(cls, v):
+        for path in v:
+            if not path.startswith("s3://") or not path.endswith(".webp"):
+                raise ValueError(
+                    "images_path needs to start with s3:// and end with .webp"
+                )
+        return v
 
 
 class UpdateDeleteImageResponse(BaseModel):
