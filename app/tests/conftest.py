@@ -13,7 +13,7 @@ settings = Settings()
 
 @pytest.fixture
 async def ac() -> AsyncGenerator:
-    headers = {"X-YUISHIMAMURA-API-KEY": settings.API_KEY}
+    headers = {"X-API-KEY": settings.API_KEY}
     async with AsyncClient(app=app, base_url="https://test", headers=headers) as c:
         yield c
 
@@ -21,7 +21,7 @@ async def ac() -> AsyncGenerator:
 @pytest.fixture(scope="module")
 def client() -> Generator:
     with TestClient(app) as c:
-        c.headers.update({"X-YUISHIMAMURA-API-KEY": settings.API_KEY})
+        c.headers.update({"X-API-KEY": settings.API_KEY})
         yield c
 
 
