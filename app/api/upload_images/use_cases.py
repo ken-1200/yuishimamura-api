@@ -52,7 +52,7 @@ class UploadImage:
             )
             raise await self.convert_error(repr(error), S3UploadError)
 
-        # リスト内の各要素の id, idx 値を取得して、その中で最大値を見つけます
+        # リスト内の各要素の id, idx 値を取得して、その中で最大値を見る
         _id = max(image["id"] for image in params.images_json["images"])
         _idx = max(image["idx"] for image in params.images_json["images"])
 
