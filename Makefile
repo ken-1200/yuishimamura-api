@@ -1,19 +1,20 @@
 MARK:="not optional"
-# ./app/envs/.env.local を指定。
-STAGE:=local
+
+-include .env
 
 clean:
-	STAGE=${STAGE} docker compose stop
-	STAGE=${STAGE} docker compose rm -f
+	docker compose stop
+	docker compose rm -f
+	rm -rf test_modules
 
 build:
-	STAGE=${STAGE} docker compose build yuishimamura-api
+	docker compose build yuishimamura-api
 
 build-mainimage:
-	docker build -t p01-yuishimamura-api -f Dockerfile-SLS .
+	docker build -t ${APP_IMAGE} -f Dockerfile-SLS .
 
 run:
-	STAGE=${STAGE} docker compose up yuishimamura-api
+	docker compose up yuishimamura-api
 
 requirements.lock: requirements.txt
 	docker run -it --rm -v $$(pwd):/app -w /app python:3.10 bash -c 'pip install -r requirements.txt && pip freeze > requirements.lock'
