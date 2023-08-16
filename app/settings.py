@@ -1,11 +1,18 @@
 import os
 from pathlib import Path
 
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
     """設定値を管理するクラス"""
+
+    env: str = os.environ["APP_CONFIG_FILE"]
+    model_config = SettingsConfigDict(
+        env_file=Path(__file__).parent / f"config/{env}.env",
+        env_file_encoding="utf-8",
+        case_sensitive=True,
+    )
 
     ENV_NAME: str
     DEBUG: bool
@@ -21,8 +28,3 @@ class Settings(BaseSettings):
     # /docs 用のBasic認証
     BASIC_USER_NAME: str = "machidahouse-lab"
     BASIC_PASSWORD: str = "A9!h#Yn=="
-
-    class Config:
-        env = os.environ["APP_CONFIG_FILE"]
-        env_file = Path(__file__).parent / f"config/{env}.env"
-        case_sensitive = True

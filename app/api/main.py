@@ -5,7 +5,7 @@ from starlette.status import HTTP_403_FORBIDDEN
 from app.constants import API_KEY_NAME
 from app.settings import Settings
 
-from .delete_update_images.views import router as delete_update_images_router
+from .update_delete_images.views import router as update_delete_images_router
 from .upload_images.views import router as upload_images_router
 
 settings = Settings()
@@ -29,5 +29,5 @@ async def get_api_key(
 router = APIRouter(
     dependencies=[Depends(get_api_key)],
 )
-router.include_router(delete_update_images_router)
+router.include_router(update_delete_images_router)
 router.include_router(upload_images_router)

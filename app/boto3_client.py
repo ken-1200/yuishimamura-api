@@ -8,7 +8,7 @@ settings = Settings()
 
 @cache(seconds=300)
 def init_client(service_name: str):
-    if settings.Config.env == "local":
+    if settings.env == "local":
         session = boto3.session.Session(profile_name=settings.PROFILE_NAME)
         return session.client(service_name)
     else:

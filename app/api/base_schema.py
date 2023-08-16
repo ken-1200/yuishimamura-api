@@ -1,7 +1,6 @@
 from pydantic import BaseModel as BaseModel_
-from pydantic import Extra
+from pydantic import ConfigDict
 
 
 class BaseModel(BaseModel_):
-    class Config:
-        extra = Extra.forbid
+    model_config = ConfigDict(extra="forbid")
