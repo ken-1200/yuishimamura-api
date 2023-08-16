@@ -3,8 +3,10 @@ import pytest
 params_test_images_path = {
     "数字はNG": [1],
     "辞書はNG": [{"a": "b"}],
-    "s3://始まり以外はNG": ["test/test1.webp", "test/test2.webp"],
-    "拡張子がwebp以外はNG": ["s3://test/test1.jpg", "s3://test/test2.jpg"],
+    "拡張子がwebp以外はNG": [
+        "/images/IMG_1692196331457099717.jpg",
+        "/images/IMG_1692196331457099717.png",
+    ],
 }
 
 

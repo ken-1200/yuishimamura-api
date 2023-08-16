@@ -10,10 +10,8 @@ class UpdateDeleteImageRequest(BaseModel):
     @field_validator("images_path")
     def validate_images_path(cls, v):
         for path in v:
-            if not path.startswith("s3://") or not path.endswith(".webp"):
-                raise ValueError(
-                    "images_path needs to start with s3:// and end with .webp"
-                )
+            if not path.endswith(".webp"):
+                raise ValueError("images_path needs to end with .webp")
         return v
 
 
