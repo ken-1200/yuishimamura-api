@@ -54,7 +54,7 @@ yarn sls create_domain --stage prod
 make push-mainimage
 
 # リソースのデプロイ
-make deploy
+yarn sls deploy --stage prod
 
 # リソースの削除
 yarn sls delete_domain --stage prod
