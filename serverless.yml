@@ -33,6 +33,10 @@ provider:
           Action:
             - 'cloudfront:CreateInvalidation'
           Resource: 'arn:aws:cloudfront::${aws:accountId}:distribution/${env:DISTRIBUTION_ID}'
+        - Effect: Allow
+          Action:
+            - 'ssm:GetParameters'
+          Resource: '*'
   tags:
     Product: yuishimamura
     Service: yuishimamura-api
