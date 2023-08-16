@@ -29,10 +29,10 @@ test-pytest:
 	docker compose exec -e PYTHONPATH=test_modules yuishimamura-api python3 -m pytest -m ${MARK}
 
 push-mainimage:
-	aws ecr get-login-password --region ap-northeast-1 | docker login --username AWS --password-stdin 909937076167.dkr.ecr.ap-northeast-1.amazonaws.com
+	aws ecr get-login-password --region ap-northeast-1 | docker login --username AWS --password-stdin ${ECR_DOMAIN}
 	@make build-mainimage
-	docker tag p01-yuishimamura-api:latest 909937076167.dkr.ecr.ap-northeast-1.amazonaws.com/p01-yuishimamura-api:latest
-	docker push 909937076167.dkr.ecr.ap-northeast-1.amazonaws.com/p01-yuishimamura-api:latest
+	docker tag ${APP_IMAGE}:latest ${ECR_REPO_APP}:latest
+	docker push ${ECR_REPO_APP}:latest
 
 deploy:
 	@make push-mainimage
