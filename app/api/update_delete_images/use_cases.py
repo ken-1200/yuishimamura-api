@@ -10,7 +10,7 @@ from app.exceptions.exception import S3DeleteObjectError, YuishimamuraAPIBaseExc
 from app.services.s3 import delete_object, put_object
 from app.settings import Settings
 
-from .schema import DeleteUpdateImageRequest
+from .schema import UpdateDeleteImageRequest
 
 logger = logging.getLogger(__name__)
 
@@ -19,13 +19,13 @@ settings = Settings()
 I = TypeVar("I", bound=YuishimamuraAPIBaseException)
 
 
-class DeleteUpdateImage:
+class UpdateDeleteImage:
     def __init__(self, request: Request, background_tasks: BackgroundTasks) -> None:
         self.request = request
         self.background_tasks = background_tasks
 
-    async def execute(self, params: DeleteUpdateImageRequest) -> Mapping[str, Any]:
-        logger.info("DeleteUpdateImage", extra=params.model_dump())
+    async def execute(self, params: UpdateDeleteImageRequest) -> Mapping[str, Any]:
+        logger.info("UpdateDeleteImage", extra=params.model_dump())
 
         # S3の画像を削除
         try:
