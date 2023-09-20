@@ -61,7 +61,7 @@ custom:
   apiKeys:
     prod:
       - name: YuiShimamuraAPIProdKey
-        value: zUmZWZmOaD86eUxuJZqwz8G4jULlwxeK24TCjKrk
+        value: 
   tags:
     - Key: Product
       Value: ${self:provider.tags.Product}
